@@ -7,7 +7,7 @@ struct MultUpdate{T} <: NMFAlgorithm{T}
 
     function MultUpdate{T}(;
         maxiter::Integer=100,
-        ε=eps(T),
+        ε::Real=eps(T),
         tol::Real=cbrt(eps(T))
     ) where T
         maxiter > 1 || throw(ArgumentError("maxiter must be greater than 1."))

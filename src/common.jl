@@ -12,6 +12,20 @@ function checksize(X::Matrix{T}, A1::Matrix{T}, A2::Matrix{T}, S::Matrix{T}) whe
     return (n, l, k)
 end # function checksize
 
+struct Result{T}
+    A2::Matrix{T}
+    S::Matrix{T}
+    niters::Int
+    converged::Bool
+
+    function Result{T}(A2::Matrix{T}, S::Matrix{T}, niters::Int, converged::Bool) where T
+        if size(A2, 2) != size(S, 1)
+            throw(DimensionMismatch("Inner dimensions of A2 and S disagree."))
+        end # if
+        new{T}(A2, S, niters, converged)
+    end # function Result{T}
+end # struct Result{T}
+
 function solve!(
     alg::NMFAlgorithm{T},
     X::Matrix{T},
@@ -36,14 +50,17 @@ function solve!(
         update!(alg, state, X, A1, A2, S)
 
         # check convergence
+        converged, dev = check_convergence(A2, prev_A2, S, prev_S, alg.tol)
     end # while !converged && t < alg.maxiter
+
+    return Result{T}(A2, S, t, converged)
 end # function solve!
 
 """
     check_convergence(A2, prev_A2, S, prev_S, eps)  
 
 Check to see if convergence has been reached. 
-Note this convergence code is from [NMF.jl](https://github.com/JuliaStats/NMF.jl).
+Note this convergence code is originally from [NMF.jl](https://github.com/JuliaStats/NMF.jl).
 """
 function check_convergence(
     A2::AbstractArray{T},

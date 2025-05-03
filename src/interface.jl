@@ -52,7 +52,7 @@ function part_nmf(
 
     # initalization
     if init == :rand
-        A2, S = randinit(X, l)
+        A2, S = randinit(X, l_2, l)
     elseif init == :custom
         A2, S = A2_0, S_0
     else
@@ -68,7 +68,13 @@ function part_nmf(
 
     # pick algorithm
     if alg == :mult
-        ret = solve!(MultUpdate(maxiter=maxiter, ε=ε, tol=tol), X, A2, S)
+        ret = solve!(
+            MultUpdate{T}(; maxiter=maxiter, ε=ε, tol=tol),
+            X,
+            A1,
+            A2,
+            S
+        )
     else 
         throw(ArgumentError("Unknown algorithm: $alg."))
     end # if
