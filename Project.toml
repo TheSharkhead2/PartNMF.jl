@@ -2,3 +2,9 @@ name = "PartNMF"
 uuid = "c61708a0-1d96-4018-962a-95b9cd158c75"
 authors = ["Theo Rode <theorodester@gmail.com>"]
 version = "0.1.0"
+
+[deps]
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+
+[compat]
+LinearAlgebra = "1.11.0"
