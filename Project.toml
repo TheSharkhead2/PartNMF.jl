@@ -7,11 +7,13 @@ version = "0.1.0"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 PrecompileTools = "aea7be01-6a6a-4083-8856-8a6e6704d82a"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+RandomizedLinAlg = "0448d7d9-159c-5637-8537-fd72090fea46"
 
 [compat]
 LinearAlgebra = "1.11.0"
 PrecompileTools = "1.2.1"
 Random = "1.11.0"
+RandomizedLinAlg = "0.1.0"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
