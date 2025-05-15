@@ -105,8 +105,8 @@ end # function nndsvd
 
 # adapted from [NMF.jl](https://github.com/JuliaStats/NMF.jl) 
 function posnegnorm(x::AbstractArray{T}) where T
-    pn = zeros(T)
-    nn = zeros(T)
+    pn = zero(T)
+    nn = zero(T)
     for i in eachindex(x)
         @inbounds xi = x[i]
         if xi > zero(T)

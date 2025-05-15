@@ -5,7 +5,7 @@ function part_nmf(
     l::Integer;
     init::Symbol = :nndsvdar,
     alg::Symbol = :mult,
-    maxiter::Integer = 100,
+    maxiter::Integer = 50000,
     tol::Real = cbrt(eps(T)/100),
     ε::Real = eps(T),
     A2_0::Union{AbstractMatrix{T}, Nothing} = nothing,
