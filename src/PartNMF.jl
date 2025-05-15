@@ -17,7 +17,7 @@ let
         A1 = rand(8, 2)
         @compile_workload begin
             for alg in (:mult,)
-                for init in (:rand,)
+                for init in (:rand, :nndsvd, :nndsvda, :nndsvdar)
                     part_nmf(X, A1, 4, alg=alg, init=init)
                 end # for init
             end # for alg

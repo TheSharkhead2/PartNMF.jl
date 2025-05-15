@@ -3,13 +3,14 @@ function part_nmf(
     X::AbstractMatrix{T},
     A1::AbstractMatrix{T},
     l::Integer;
-    init::Symbol = :rand,
+    init::Symbol = :nndsvdar,
     alg::Symbol = :mult,
     maxiter::Integer = 100,
     tol::Real = cbrt(eps(T)/100),
     ε::Real = eps(T),
     A2_0::Union{AbstractMatrix{T}, Nothing} = nothing,
-    S_0::Union{AbstractMatrix{T}, Nothing} = nothing
+    S_0::Union{AbstractMatrix{T}, Nothing} = nothing,
+    constantS::Bool = true
 ) where T
     # check for non-negativity
     eltype(X) <: Number && all(x -> x >= zero(T), X) || throw(ArgumentError(
@@ -53,6 +54,12 @@ function part_nmf(
     # initalization
     if init == :rand
         A2, S = randinit(X, l_2, l)
+    elseif init == :nndsvd
+        A2, S = nndsvd(X, l_2, l; constantS=constantS, variant=:std)
+    elseif init == :nndsvda
+        A2, S = nndsvd(X, l_2, l; constantS=constantS, variant=:a)
+    elseif init == :nndsvdar
+        A2, S = nndsvd(X, l_2, l; constantS=constantS, variant=:ar)
     elseif init == :custom
         A2, S = A2_0, S_0
     else
